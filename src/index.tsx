@@ -4,7 +4,9 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainView from "./views/MainView";
 import RaceView from "./views/RaceView";
+import "bulma/css/bulma.min.css";
 import "./index.css";
+
 
 ReactDOM.render(
 	<React.StrictMode>

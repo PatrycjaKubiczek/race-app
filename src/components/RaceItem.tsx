@@ -1,24 +1,25 @@
 import React from 'react';
 
-const RaceItem = (props: any) => {
-    console.log(props)
+const RaceItem = (props: { active: boolean; id: number; name: string; }) => {
     return (
         <li
             style={{
                 display: "flex",
-                justifyContent: "center",
                 alignItems: "center",
-                borderBottom: "1px solid black",
-                background: props.active ? "#8ad88a" : "#e2e2e2",
-                padding: "10px",
+                // borderBottom: "1px solid white",
+                background: props.active ? "#c9ebc9" : "#e2e2e2",
+                marginBottom: "15px",
+                borderRadius: "5px",
+                boxShadow: "0 2px 2px -2px #8ad88a",
+                maxWidth: "400px",
+                padding: '10px'
             }}
-            
         >
-            <p style={{ padding: "10px" }} key={Math.random()}>
+            <p style={{ paddingRight: "10px" }} key={Math.random()}>
                 {props.id}
             </p>
             <h3 key={Math.random()}>{props.name}</h3>
-    </li>
+        </li>
     );
 };
 

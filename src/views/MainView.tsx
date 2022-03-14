@@ -1,40 +1,44 @@
 import { useState, useEffect } from "react";
 import { Race } from "../types/Race";
-import RaceItem from "../components/RaceItem"
+import RaceItem from "../components/RaceItem";
 import { Link } from "react-router-dom";
+import "./MainView.scss";
 export interface Races {
-	results: Race[];
+    results: Race[];
 }
 
 const MainView = () => {
-	const [races, setRaces] = useState<any[]>([]);
-	const [filter, setFilter] = useState<boolean | null>(null);
+    const [races, setRaces] = useState<Races['results']>([]);
+    const [filter, setFilter] = useState<boolean | null>(null);
 
-	useEffect(() => {
-		fetch("https://my-json-server.typicode.com/hdjfye/bet-api/races")
-			.then((res) => res.json())
-			.then((res) => {
-				console.log(res)
-				setRaces(res);
-			});
-	}, []);
+    const fetchData = async () => {
+        const data = await fetch(
+            "https://my-json-server.typicode.com/hdjfye/bet-api/races"
+        );
+        const json = await data.json();
+        console.log(json);
+        setRaces(json);
+    };
 
-	const filterRaces = ({ active } : {active : Boolean | any}) => {
-		if(filter === null){
-			return true
-		} else if(filter === true) {
-			return active
-		} else {
-			return !active
-		}
-	}
-	return (
-		<>
-		 
-			<div style={{ padding: "10px" }}>
-				Filter races by status:
-				<p>{filter}</p>
-				{/* {statuses.map((status) => (
+      useEffect(() => {
+          fetchData().catch(console.error);
+      }, []);
+
+    const filterRaces = ({ active }: { active: Boolean }) => {
+        if (filter === null) {
+            return true;
+        } else if (filter) {
+            return active;
+        } else {
+            return !active;
+        }
+    };
+
+    return (
+        <main>
+            <div className="container race__list">
+                <h1 className="is-size-2 mb-4">Race App</h1>
+                {/* {statuses.map((status) => (
 					<>
 					
 						<input
@@ -47,26 +51,72 @@ const MainView = () => {
 						/> <label>{status}</label>
 					</>
 				))} */}
-				
-				<input type="radio" value="all" name="status"  style={{marginLeft: '10px'}} onChange={()=>setFilter(null)}/> All
-				<input type="radio" value="active" name="status"  style={{marginLeft: '10px'}} onChange={()=>setFilter(true)}/> Active
-				<input type="radio" value="inactive" name="status"  style={{marginLeft: '10px'}} onChange={()=>setFilter(false)}/> Inactive
-			</div>
-			<ul
-				style={{
-					display: "flex",
-					flexDirection: "column",
-				}}
-			>	
-			{
-				races.filter(filterRaces).map(({ id, name, active, participants }) => (
-					<Link to={{ pathname: `races/${id}`}} state={{id: id, name: name, active:active, participants: participants}} key={id}>
-						<RaceItem id={id} name={name} active={active}/>
-					</Link>
-				))}
-			</ul>
-		</>
-	);
+                <span className="is-size-7"> Filter races by status:</span>
+                <input
+                    className="is-size-7"
+                    type="radio"
+                    value="all"
+                    name="status"
+                    style={{ marginLeft: "10px" }}
+                    onChange={() => setFilter(null)}
+                    defaultChecked
+                />{" "}
+                All
+                <input
+                    className="is-size-7"
+                    type="radio"
+                    value="active"
+                    name="status"
+                    style={{ marginLeft: "10px" }}
+                    onChange={() => setFilter(true)}
+                />{" "}
+                <label className="is-size-7">Active</label>
+                <input
+                    className="is-size-7"
+                    type="radio"
+                    value="inactive"
+                    name="status"
+                    style={{ marginLeft: "10px" }}
+                    onChange={() => setFilter(false)}
+                />{" "}
+                 <label className="is-size-7">Inactive</label>
+            </div>
+            <ul
+                className="container race__list mt-2"
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                }}
+            >
+                {races
+                    .filter(filterRaces)
+                    .map( ({
+                            id,
+                            name,
+                            active,
+                            participants,
+                        }: {
+                            id: number;
+                            name: string;
+                            active: boolean;
+                            participants: [];
+                        }) => (
+                        <Link
+                            to={{ pathname: `races/${id}` }}
+                            state={{
+                                id: id,
+                                name: name,
+                                active: active,
+                                participants: participants,
+                            }}
+                            key={id}
+                        >
+                            <RaceItem id={id} name={name} active={active} />
+                        </Link>
+                    ))}
+            </ul>
+        </main>
+    );
 };
 
 export default MainView;
