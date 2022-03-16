@@ -3,6 +3,7 @@ import { Race } from "../types/Race";
 import RaceItem from "../components/RaceItem";
 import { Link } from "react-router-dom";
 import "./MainView.scss";
+import InputRadio from "../components/InputRadio";
 export interface Races {
     results: Race[];
 }
@@ -51,35 +52,42 @@ const MainView = () => {
 						/> <label>{status}</label>
 					</>
 				))} */}
-                <span className="is-size-7"> Filter races by status:</span>
-                <input
-                    className="is-size-7"
-                    type="radio"
-                    value="all"
-                    name="status"
-                    style={{ marginLeft: "10px" }}
+                <InputRadio
+                    value={"all"}
                     onChange={() => setFilter(null)}
                     defaultChecked
-                />{" "}
-                All
-                <input
-                    className="is-size-7"
-                    type="radio"
-                    value="active"
-                    name="status"
-                    style={{ marginLeft: "10px" }}
-                    onChange={() => setFilter(true)}
-                />{" "}
-                <label className="is-size-7">Active</label>
-                <input
-                    className="is-size-7"
-                    type="radio"
-                    value="inactive"
-                    name="status"
-                    style={{ marginLeft: "10px" }}
-                    onChange={() => setFilter(false)}
-                />{" "}
-                 <label className="is-size-7">Inactive</label>
+                />
+                <span className="is-size-7"> Filter races by status:</span>
+                {/* <label className="is-size-7" onChange={() => setFilter(null)}>
+                    <input
+                        type="radio"
+                        value="all"
+                        name="status"
+                        style={{ marginLeft: "10px" }}
+                        defaultChecked
+                    />{" "}
+                    All
+                </label> */}
+                <label className="is-size-7" onChange={() => setFilter(true)}>
+                    <input
+                        className="is-size-7"
+                        type="radio"
+                        value="active"
+                        name="status"
+                        style={{ marginLeft: "10px" }}
+                    />{" "}
+                    Active
+                </label>
+                <label className="is-size-7" onChange={() => setFilter(false)}>
+                    <input
+                        className="is-size-7"
+                        type="radio"
+                        value="inactive"
+                        name="status"
+                        style={{ marginLeft: "10px" }}
+                    />{" "}
+                    Inactive
+                </label>
             </div>
             <ul
                 className="container race__list mt-2"
@@ -90,7 +98,8 @@ const MainView = () => {
             >
                 {races
                     .filter(filterRaces)
-                    .map( ({
+                    .map(
+                        ({
                             id,
                             name,
                             active,
@@ -101,19 +110,20 @@ const MainView = () => {
                             active: boolean;
                             participants: [];
                         }) => (
-                        <Link
-                            to={{ pathname: `races/${id}` }}
-                            state={{
-                                id: id,
-                                name: name,
-                                active: active,
-                                participants: participants,
-                            }}
-                            key={id}
-                        >
-                            <RaceItem id={id} name={name} active={active} />
-                        </Link>
-                    ))}
+                            <Link
+                                to={{ pathname: `races/${id}` }}
+                                state={{
+                                    id: id,
+                                    name: name,
+                                    active: active,
+                                    participants: participants,
+                                }}
+                                key={id}
+                            >
+                                <RaceItem id={id} name={name} active={active} />
+                            </Link>
+                        )
+                    )}
             </ul>
         </main>
     );
