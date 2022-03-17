@@ -10,84 +10,52 @@ export interface Races {
 
 const MainView = () => {
     const [races, setRaces] = useState<Races['results']>([]);
-    const [filter, setFilter] = useState<boolean | null>(null);
+    const [filter, setFilter] = useState<String>('all');
 
     const fetchData = async () => {
         const data = await fetch(
             "https://my-json-server.typicode.com/hdjfye/bet-api/races"
         );
         const json = await data.json();
-        console.log(json);
+        // console.log(json);
         setRaces(json);
     };
+    const handleFilter = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        console.log(e.currentTarget.value)
+        setFilter(e.currentTarget.value)
+    }
 
       useEffect(() => {
           fetchData().catch(console.error);
       }, []);
 
     const filterRaces = ({ active }: { active: Boolean }) => {
-        if (filter === null) {
+        if (filter === 'all') {
             return true;
-        } else if (filter) {
+        } else if (filter === 'active') {
             return active;
         } else {
             return !active;
         }
     };
 
+    const statuses = ['all', 'active', 'inactive']
+
     return (
         <main>
             <div className="container race__list">
                 <h1 className="is-size-2 mb-4">Race App</h1>
-                {/* {statuses.map((status) => (
-					<>
-					
-						<input
-							type="radio"
-							value={status}
-							name="status"
-							style={{ marginLeft: "10px" }}
-							onChange={() => setFilter(status)}
-							{status ? 'checked' : ''}
-						/> <label>{status}</label>
-					</>
-				))} */}
-                <InputRadio
-                    value={"all"}
-                    onChange={() => setFilter(null)}
-                    defaultChecked
-                />
                 <span className="is-size-7"> Filter races by status:</span>
-                {/* <label className="is-size-7" onChange={() => setFilter(null)}>
-                    <input
-                        type="radio"
-                        value="all"
-                        name="status"
-                        style={{ marginLeft: "10px" }}
-                        defaultChecked
-                    />{" "}
-                    All
-                </label> */}
-                <label className="is-size-7" onChange={() => setFilter(true)}>
-                    <input
-                        className="is-size-7"
-                        type="radio"
-                        value="active"
-                        name="status"
-                        style={{ marginLeft: "10px" }}
-                    />{" "}
-                    Active
-                </label>
-                <label className="is-size-7" onChange={() => setFilter(false)}>
-                    <input
-                        className="is-size-7"
-                        type="radio"
-                        value="inactive"
-                        name="status"
-                        style={{ marginLeft: "10px" }}
-                    />{" "}
-                    Inactive
-                </label>
+                {statuses.map((status) => (
+					 <InputRadio
+                     key={status}
+                     value={status}
+                     handleFilter={handleFilter}
+                     checked={status== 'all' ? true : false}
+                     />
+				))}
+                
+                
             </div>
             <ul
                 className="container race__list mt-2"

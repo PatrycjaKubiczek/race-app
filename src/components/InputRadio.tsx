@@ -1,12 +1,21 @@
-const InputRadio = ( props: { value: string } ) => (
-    <label className="is-size-7" onChange={() => setFilter(true)}>
+interface InputRadioProps {
+    value: string,
+    handleFilter: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    checked?: boolean
+}
+
+const InputRadio= ({value, handleFilter, checked}: InputRadioProps) => (
+    <label className="is-size-7">
         <input
             className="is-size-7"
             type="radio"
-            value={props.value}
+            value={value}
             name="status"
-            style={{ marginLeft: "10px" }} />{" "}
-        Active
+            style={{ marginLeft: "10px" }} 
+            onChange={handleFilter}
+            defaultChecked={checked}
+            />
+            {value}
     </label>
 )
  

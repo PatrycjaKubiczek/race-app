@@ -15,7 +15,7 @@ const RaceView = () => {
                     {location.state.active ? "active" : "inactive"})
                 </h2>
 
-                <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+                <div className="flex-center">
                     bet amount: <input className="input" type="number" style={{maxWidth: "200px", marginLeft: "20px"}}/>
                 </div>
 
