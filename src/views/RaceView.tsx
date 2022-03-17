@@ -16,7 +16,7 @@ const RaceView = () => {
                 </h2>
 
                 <div className="flex-center">
-                    bet amount: <input className="input" type="number" style={{maxWidth: "200px", marginLeft: "20px"}}/>
+                    bet amount: <input className="input input__bet" type="number"/>
                 </div>
 
                 <table className="table is-striped is-hoverable mt-2">
@@ -37,7 +37,7 @@ const RaceView = () => {
                                         winner{" "}
                                         <input
                                             type="radio"
-                                            name={`grou${index}`}
+                                            name={`group${index}`}
                                             id=""
                                         />
                                     </td>
@@ -45,7 +45,7 @@ const RaceView = () => {
                                         second place{" "}
                                         <input
                                             type="radio"
-                                            name={`grou${index}`}
+                                            name={`group${index}`}
                                             id=""
                                         />
                                     </td>
@@ -53,7 +53,7 @@ const RaceView = () => {
                                         third place{" "}
                                         <input
                                             type="radio"
-                                            name={`grou${index}`}
+                                            name={`group${index}`}
                                             id=""
                                         />
                                     </td>
