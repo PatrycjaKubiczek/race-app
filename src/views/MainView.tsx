@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { Race } from "../types/Race";
-import RaceItem from "../components/RaceItem";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "./MainView.scss";
 import InputRadio from "../components/InputRadio";
+import RaceItem from "../components/RaceItem";
+import { Race } from "../types/Race";
+import "./MainView.scss";
 export interface Races {
     results: Race[];
 }
@@ -17,11 +17,9 @@ const MainView = () => {
             "https://my-json-server.typicode.com/hdjfye/bet-api/races"
         );
         const json = await data.json();
-        // console.log(json);
         setRaces(json);
     };
     const handleFilter = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        console.log(e.currentTarget.value)
         setFilter(e.currentTarget.value)
     }
 
@@ -29,7 +27,7 @@ const MainView = () => {
           fetchData().catch(console.error);
       }, []);
 
-    const filterRaces = ({ active }: { active: Boolean }) => {
+    function filterRaces({ active }: { active: Boolean; }) {
         if (filter === 'all') {
             return true;
         } else if (filter === 'active') {
@@ -37,9 +35,9 @@ const MainView = () => {
         } else {
             return !active;
         }
-    };
+    }
 
-    const statuses = ['all', 'active', 'inactive']
+    const statuses: string[] = ['all', 'active', 'inactive']
 
     return (
         <main>
@@ -51,7 +49,7 @@ const MainView = () => {
                      key={status}
                      value={status}
                      handleFilter={handleFilter}
-                     checked={status== 'all' ? true : false}
+                     checked={status === 'all' ? true : false}
                      />
 				))}
                 
