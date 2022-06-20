@@ -1,0 +1,27 @@
+.race__item {
+    display: flex;
+    align-items: center;
+    // borderBottom: 1px solid white;
+    background-color: #e2e2e2;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px -2px #8ad88a;
+    max-width: 400px;
+    padding: 10px 15px;
+    transition: all .15s ease-in-out;
+    color: black;
+     border-left: 10px solid grey;
+    &.active {
+        background-color: #c9ebc9;
+        border-left: 10px solid green;
+    }
+    &:hover {
+        filter: brightness(0.95);
+    }
+}
+
+.race__item__number {
+    padding: 10px;
+    font-weight: bold;
+    margin-right: 1em;
+}

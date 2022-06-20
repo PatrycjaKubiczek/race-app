@@ -1,6 +1,5 @@
 import "./RaceView.scss";
 
-// import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const RaceView = () => {
