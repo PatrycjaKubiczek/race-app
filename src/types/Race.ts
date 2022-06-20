@@ -4,3 +4,7 @@ export interface Race {
     active: boolean;
     participants: []   
 }
+
+export interface Races {
+    results: Race[];
+}
