@@ -1,30 +1,21 @@
 import "./MainView.scss";
 
-import { Race, Races } from "../types/Race";
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import InputRadio from "../components/InputRadio";
 import { Link } from "react-router-dom";
+import { Race } from "../types/Race";
 import RaceItem from "../components/RaceItem";
+import { useAPI } from "../apiContext";
 
 const MainView = () => {
-	const [races, setRaces] = useState<Races["results"]>([]);
+	const { races }: any = useAPI();
+
 	const [filter, setFilter] = useState<String>("all");
 
-	const fetchData = async () => {
-		const data = await fetch(
-			"https://my-json-server.typicode.com/hdjfye/bet-api/races"
-		);
-		const json = await data.json();
-		setRaces(json);
-	};
 	const handleFilter = (e: React.ChangeEvent<HTMLInputElement>): void => {
 		setFilter(e.currentTarget.value);
 	};
-
-	useEffect(() => {
-		fetchData().catch(console.error);
-	}, []);
 
 	const filterRaces = ({ active }: { active: Boolean }) => {
 		if (filter === "all") {
@@ -60,7 +51,7 @@ const MainView = () => {
 				}}
 			>
 				{races
-					.filter(filterRaces)
+					?.filter(filterRaces)
 					.map(({ id, name, active, participants }: Race) => (
 						<Link
 							to={{ pathname: `races/${id}` }}

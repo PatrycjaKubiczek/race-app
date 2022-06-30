@@ -1,21 +1,25 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import MainView from "./views/MainView";
-import RaceView from "./views/RaceView";
 import "bulma/css/bulma.min.css";
 import "./index.css";
 
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import { APIContextProvider } from "./apiContext";
+import MainView from "./views/MainView";
+import RaceView from "./views/RaceView";
+import React from "react";
+import ReactDOM from "react-dom";
+import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
 	<React.StrictMode>
-		<BrowserRouter>
-			<Routes>
-				<Route path="/" element={<MainView />} />
-				<Route path="/races/:id" element={<RaceView />} />
-			</Routes>
-		</BrowserRouter>
+		<APIContextProvider>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<MainView />} />
+					<Route path="/races/:id" element={<RaceView />} />
+				</Routes>
+			</BrowserRouter>
+		</APIContextProvider>
 	</React.StrictMode>,
 	document.getElementById("root")
 );

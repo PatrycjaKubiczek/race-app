@@ -3,8 +3,10 @@ table {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	td {
+	td,
+	th {
 		padding: 10px;
+		width: 200px;
 	}
 }
 

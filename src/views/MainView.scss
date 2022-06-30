@@ -1,20 +1,21 @@
 main {
-    margin: 50px 0;
+	margin: 50px 0;
+	display: flex;
+	flex-direction: column;
 }
 
 input {
-    height: 10px;
+	height: 10px;
 }
 
 .race__list {
-    max-width: 400px;
+	max-width: 400px;
 }
 
 label {
-    cursor: pointer;
-    color: grey;
-    &:hover{
-        color: black;
-    }
+	cursor: pointer;
+	color: grey;
+	&:hover {
+		color: black;
+	}
 }
-
